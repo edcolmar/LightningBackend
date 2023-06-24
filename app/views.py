@@ -21,6 +21,7 @@ import pymongo  # package for working with MongoDB
 import logging
 import jwt
 import os
+import random
 from sys import stdout
 
 from functools import wraps
@@ -370,16 +371,47 @@ def userEmailValidationStart(wallet, incoming_email = None):
     ## TODO make sure email is not already validated?
     
     #update the email address to the supplied
-    wallet['emailaddress'] = incoming_email
+    #wallet['emailaddress'] = incoming_email
 
-    # TODO generate a verification codde
+    # TODO generate a verification code
+    randomInt = str(random.randint(100000, 999999))
 
-    lightning_wallet_model.update(wallet['_id'], {'emailaddress': incoming_email})
+    lightning_wallet_model.update(wallet['_id'], {'emailaddress': incoming_email, 'emailverificationcode': randomInt})
 
-    # get the email from the request
-    
-    # save the verification code in the wallet
     # send an email containing the verification code and link
+
+    return jsonify({'success' : True})
+
+@app.route("/user/email/<incoming_email>/validate/<incoming_validation>")
+@token_required
+def userEmailValidationComplete(wallet, incoming_email = None, incoming_validation = None):
+    lightning_wallet_model = lightningwallets.LightningWallets()
+    user_model = users.Users()
+
+    # start the email validation process.
+    print(incoming_email)
+    print(incoming_validation)
+
+    # get the wallet from the decorator
+    print(wallet)
+
+    if wallet['emailverificationcode'] == incoming_validation:
+        print('validation match')
+
+        ## look up user by email
+        user = user_model.find_by_emailaddress(incoming_email)
+        if user is None:
+            print('user not found - creating')
+            user = user_model.create({'emailaddress': incoming_email})
+            lightning_wallet_model.update(wallet['_id'], { 'userid': user['_id'], 'userconnected': True })
+        else:
+            print('found user with this email')
+            lightning_wallet_model.update(wallet['_id'], { 'userid': user['_id'], 'userconnected': True })
+
+    else:
+        print('validation mismatch')
+        return jsonify({'success' : False})
+
     return jsonify({'success' : True})
 
 

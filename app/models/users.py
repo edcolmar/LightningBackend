@@ -20,7 +20,7 @@ class Users(object):
             "updated": "datetime",
         }
 
-        self.create_required_fields = ["name", "address"]
+        self.create_required_fields = ["emailaddress"]
 
         # Fields optional for CREATE
         self.create_optional_fields = []
@@ -42,6 +42,14 @@ class Users(object):
 
     def find_by_id(self, id):
         return self.db.find_by_id(id, self.collection_name)
+    
+    def find_by_emailaddress(self, emailaddress):
+        found = self.db.find_one({"emailaddress": emailaddress}, self.collection_name)
+        #if found is None:
+        #    return not found
+        #if "_id" in found:
+        #     found["_id"] = str(found["_id"])
+        return found
 
     def update(self, id, user):
         self.validator.validate(user, self.fields, self.update_required_fields, self.update_optional_fields)

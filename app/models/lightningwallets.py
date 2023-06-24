@@ -17,6 +17,7 @@ class LightningWallets(object):
             "userid": "string",
             "userconnected": "bool", 
             "emailaddress": "string",
+            "emailverificationcode": "string",
             "emailvalidated": "bool", 
             "bech_32_url": "string",
             "k1": "string",
@@ -33,7 +34,7 @@ class LightningWallets(object):
         self.update_required_fields = []
 
         # Fields optional for UPDATE
-        self.update_optional_fields = [ "_id", "publickey", "userid", "userconnected", "emailaddress", "emailvalidated", "bech_32_url", "k1", "created", "updated"]
+        self.update_optional_fields = [ "_id", "publickey", "userid", "userconnected", "emailaddress", "emailverificationcode", "emailvalidated", "bech_32_url", "k1", "created", "updated"]
 
     def create(self, lightningwallet):
         # Validator will throw error if invalid
