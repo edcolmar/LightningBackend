@@ -48,8 +48,8 @@ class LightningChallenges(object):
         if found is None:
             return not found
         
-        if "_id" in found:
-             found["_id"] = str(found["_id"])
+        #if "_id" in found:
+        #     found["_id"] = str(found["_id"])
 
         return found
 

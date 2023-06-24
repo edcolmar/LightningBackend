@@ -47,8 +47,8 @@ class LightningWallets(object):
         found = self.db.find_one({"publickey": publickey}, self.collection_name)
         if found is None:
             return not found
-        if "_id" in found:
-             found["_id"] = str(found["_id"])
+        #if "_id" in found:
+        #     found["_id"] = str(found["_id"])
         return found
     
     def find_by_bech_32_url(self, bech_32_url):
