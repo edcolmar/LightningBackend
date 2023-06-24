@@ -185,7 +185,7 @@ def signin():
 
             ## TODO update with this challenge's bech_32_url
             existing_wallet['bech_32_url'] = pending_challenge['bech_32_url']
-            lightning_wallet_model.update(existing_wallet)
+            lightning_wallet_model.update(existing_wallet['_id'], existing_wallet)
             
             if existing_wallet['userconnected']:
                 print('user connected')
