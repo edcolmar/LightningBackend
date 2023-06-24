@@ -18,6 +18,7 @@ import socket
 import pymongo  # package for working with MongoDB
 import logging
 import jwt
+import os
 from sys import stdout
 
 from functools import wraps
@@ -92,7 +93,8 @@ def auth():
     logger.debug('Auth')
     #32 byte challenge k1
     k1 = secrets.token_hex(32)
-    host_address = socket.gethostbyname(socket.gethostname())
+    #host_address = socket.gethostbyname(socket.gethostname())
+    host_address = os.environ['host_address']
     #client = docker.DockerClient()
     #container = client.containers.get('fplb')
     #host_address = container.attrs['NetworkSettings']['IPAddress']
