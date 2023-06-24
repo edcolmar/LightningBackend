@@ -266,7 +266,7 @@ def me():
     else:
         print('found wallet by bech_32_url')
 
-        if this_wallet['userid'] == 0:
+        if this_wallet['userid'] == "0":
             print('user id set to zero')
             auth_token = this_wallet.encode_auth_token(this_wallet['_id'])
             if auth_token:
