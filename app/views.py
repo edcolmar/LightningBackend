@@ -374,7 +374,7 @@ def userEmailValidationStart(wallet, incoming_email = None):
 
     # TODO generate a verification codde
 
-    lightning_wallet_model.update(wallet['_id'], wallet)
+    lightning_wallet_model.update(wallet['_id'], {'emailaddress': incoming_email})
 
     # get the email from the request
     
