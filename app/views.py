@@ -414,7 +414,7 @@ def userEmailValidationStart(incoming_email = None):
     logger.debug(incoming_email)
 
     # get the wallet from the decorator
-    print(f{wallet})
+    print(f{'wallet'})
     #wallet = f(wallet)
 
     # get the email from the request
