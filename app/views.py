@@ -141,7 +141,8 @@ def signin():
     print(public_key.__str__())
     pending_challenge = lightning_challneges_model.find_by_publickey(public_key.__str__())
 
-    if not pending_challenge:
+    if pending_challenge == None:
+        print('Challenge not found')
         error["status"] = True
         error["message"] = "Invalid challenge"
     else:
@@ -159,30 +160,30 @@ def signin():
         logger.debug(existing_wallet)
 
         if existing_wallet:
-            logger.debug('found existing wallet - get user')
+            print('found existing wallet - get user')
 
             ## TODO update with this challenge's bech_32_url
             existing_wallet['bech_32_url'] = pending_challenge['bech_32_url']
             lightning_wallet_model.update(existing_wallet)
             
             if existing_wallet['userconnected']:
-                logger.debug('user connected')
+                print('user connected')
                 user = user_model.find_by_id(existing_wallet['userid'])
 
                 
                 if user:
                     ## do we need to do something with the user?
-                    logger.debug('got user')
+                    print('got user')
 
                 else:
-                    logger.debug('user not found')
+                    print('user not found')
 
                     ## TODO send out an email verification - but we don't have the email yet... 
 
             else:
-                logger.debug('user not connected')
+                print('user not connected')
         else:
-            logger.debug('existing wallet not found - creating')
+            print('existing wallet not found - creating')
 
             new_wallet = lightning_wallet_model.create(
                 {
