@@ -266,10 +266,8 @@ def me():
     else:
         print('found wallet by bech_32_url')
 
-
-        user = user_model.find_by_id(ObjectId(this_wallet['userid']))
-        if user == None:
-            print('user not found')
+        if this_wallet['userid'] == 0:
+            print('user id set to zero')
             auth_token = this_wallet.encode_auth_token(this_wallet['_id'])
             if auth_token:
                 responseObject = {
@@ -282,19 +280,35 @@ def me():
                 }
                 return make_response(jsonify(responseObject)), 200
         else:
-            print('found user')
-            ## generate an auth token
-            auth_token = this_wallet.encode_auth_token(this_wallet['_id'])
-            if auth_token:
-                responseObject = {
-                    'userid': user['_id'],
-                    'name': user['name'],
-                    'status': 'success',
-                    'message': 'Successfully logged in.',
-                    'auth_token': auth_token.decode(),
-                    'do_email_validation': False
-                }
-                return make_response(jsonify(responseObject)), 200
+
+            user = user_model.find_by_id(ObjectId(this_wallet['userid']))
+            if user == None:
+                print('user not found')
+                auth_token = this_wallet.encode_auth_token(this_wallet['_id'])
+                if auth_token:
+                    responseObject = {
+                        'userid': 0,
+                        'name': 'anonymous user',
+                        'status': 'success',
+                        'message': 'Successfully logged in.',
+                        'auth_token': auth_token.decode(),
+                        'do_email_validation': True
+                    }
+                    return make_response(jsonify(responseObject)), 200
+            else:
+                print('found user')
+                ## generate an auth token
+                auth_token = this_wallet.encode_auth_token(this_wallet['_id'])
+                if auth_token:
+                    responseObject = {
+                        'userid': user['_id'],
+                        'name': user['name'],
+                        'status': 'success',
+                        'message': 'Successfully logged in.',
+                        'auth_token': auth_token.decode(),
+                        'do_email_validation': False
+                    }
+                    return make_response(jsonify(responseObject)), 200
         #except:
         #    logger.debug('did not find userid in wallet.  Is login complete?')
             
