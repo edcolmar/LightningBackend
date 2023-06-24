@@ -170,7 +170,7 @@ def signin():
 
             new_wallet = lightning_wallet_model.create(
                 {
-                    "publickey": public_key.to_der(), 
+                    "publickey": public_key.__str__(), 
                     "userid": "0",
                     "userconnected": False,
                     "emailaddress": "",
