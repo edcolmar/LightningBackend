@@ -141,7 +141,7 @@ def signin():
     
     pending_challenge = lightning_challneges_model.find_by_publickey(public_key.__str__())
 
-    if pending_challenge:
+    if not pending_challenge:
         error["status"] = True
         error["message"] = "Invalid challenge"
     else:
