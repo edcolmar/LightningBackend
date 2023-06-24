@@ -1,0 +1,12 @@
+.message {
+    font-weight: 600;
+    color: blue;
+}
+
+
+body {
+    font-family: 'Inter', sans-serif !important;
+    padding:15px;
+  }
+  
+  html.wait, html.wait * { cursor: wait !important; }
