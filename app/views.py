@@ -364,8 +364,16 @@ def setup_database():
     
     # first drop any previous entries
     ## todo remove this for production 
-    mongo_client = pymongo.MongoClient('mongodb://mongo:27017')
-    mongo_client.drop_database('customersdb');
+    ## This is not working in production - command dropDatabase requires authentication
+    ## instead we can clean up manually
+    #mongo_client = pymongo.MongoClient('mongodb://mongo:27017')
+    #mongo_client.drop_database('customersdb');
+
+    lightning_wallet_model = lightningwallets.LightningWallets()
+    wallets = lightning_wallet_model.find({})
+    for wallet in wallets:
+        print('found wallet')
+        lightning_wallet_model.delete(wallet['_id'])
 
     """
 
