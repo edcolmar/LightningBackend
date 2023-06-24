@@ -94,7 +94,7 @@ def auth():
     #32 byte challenge k1
     k1 = secrets.token_hex(32)
     #host_address = socket.gethostbyname(socket.gethostname())
-    host_address = os.environ['hardcoded_ip']
+    host_address = "54.176.48.9"
     #client = docker.DockerClient()
     #container = client.containers.get('fplb')
     #host_address = container.attrs['NetworkSettings']['IPAddress']
