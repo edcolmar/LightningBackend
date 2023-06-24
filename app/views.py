@@ -365,8 +365,10 @@ def setup_database():
     
     # first drop any previous entries
     ## todo remove this for production 
-    mongo_client = pymongo.MongoClient('mongodb://localhost:27017')
+    mongo_client = pymongo.MongoClient('mongodb://mongo:27017')
     mongo_client.drop_database('customersdb');
+
+    """
 
     # setup model(s)
     user_model = users.Users()
@@ -396,10 +398,12 @@ def setup_database():
 
     lightning_wallet_model = lightningwallets.LightningWallets()
     lightning_wallet_model.create({"publickey": "1"})
+    """
 
     return jsonify({'success' : True})
 
 @app.route("/user/email/<incoming_email>/start")
+@token_required
 def userEmailValidationStart(incoming_email = None):
     # start the email validation process.
     logger.debug(incoming_email)
