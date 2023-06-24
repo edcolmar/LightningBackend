@@ -273,7 +273,7 @@ def me():
             auth_token = this_wallet.encode_auth_token(this_wallet['_id'])
             if auth_token:
                 responseObject = {
-                    'id': 0,
+                    'userid': 0,
                     'name': 'anonymous user',
                     'status': 'success',
                     'message': 'Successfully logged in.',
@@ -287,7 +287,7 @@ def me():
             auth_token = this_wallet.encode_auth_token(this_wallet['_id'])
             if auth_token:
                 responseObject = {
-                    'id': user['_id'],
+                    'userid': user['_id'],
                     'name': user['name'],
                     'status': 'success',
                     'message': 'Successfully logged in.',
