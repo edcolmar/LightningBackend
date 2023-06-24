@@ -47,10 +47,17 @@ class LightningChallenges(object):
         
         if found is None:
             return not found
-        
         #if "_id" in found:
         #     found["_id"] = str(found["_id"])
-
+        return found
+    
+    def find_by_k1(self, k1):
+        found = self.db.find_one({"k1": k1}, self.collection_name)
+        
+        if found is None:
+            return not found
+        #if "_id" in found:
+        #     found["_id"] = str(found["_id"])
         return found
 
     def update(self, id, lightningchallenge):

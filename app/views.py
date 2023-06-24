@@ -138,8 +138,9 @@ def signin():
         error["message"] = "P_K,Sig or k1 misssing"
 
     ## look up the k1 from the db
+    ## we don't have the public key yet, so use the k1
     print(public_key.__str__())
-    pending_challenge = lightning_challneges_model.find_by_publickey(public_key.__str__())
+    pending_challenge = lightning_challneges_model.find_by_k1(k1)
 
     if pending_challenge == None:
         print('Challenge not found')
