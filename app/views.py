@@ -319,6 +319,8 @@ def token_required(f):
             print('found Auth header')
             token = auth_header.split(" ")[1]
 
+        print(token)
+
         #if 'x-access-token' in request.headers:
         #    print('found x-access-token')
         #    token = request.headers['x-access-token']
@@ -326,21 +328,23 @@ def token_required(f):
         if not token:
             return jsonify({'message' : 'Token is missing !!'}), 401
   
-        try:
-            # decoding the payload to fetch the stored details
-            data = jwt.decode(token, app.config['SECRET_KEY'])
+        #try:
+        # decoding the payload to fetch the stored details
+        data = jwt.decode(token, app.config['SECRET_KEY'])
 
-            wallet = lightning_wallet_model.find_by_id(data['sub'])
-            if wallet:
-                logger.debug('found wallet')
-                current_user = user_model.find_by_id(wallet['userid'])
-                if current_user:
-                    logger.debug('found current_user')
+        print(data)
 
-        except:
-            return jsonify({
-                'message' : 'Token is invalid !!'
-            }), 401
+        wallet = lightning_wallet_model.find_by_id(data['sub'])
+        if wallet:
+            logger.debug('found wallet')
+            current_user = user_model.find_by_id(wallet['userid'])
+            if current_user:
+                logger.debug('found current_user')
+
+        #except:
+        #    return jsonify({
+        #        'message' : 'Token is invalid !!'
+        #    }), 401
         # returns the current logged in users context to the routes
         return  f(current_user, *args, **kwargs)
   
