@@ -314,9 +314,14 @@ def token_required(f):
         lightning_wallet_model = lightningwallets.LightningWallets()
         token = None
         # jwt is passed in the request header
-        if 'x-access-token' in request.headers:
-            print('found x-access-token')
-            token = request.headers['x-access-token']
+        auth_header = request.headers.get('Authorization')
+        if auth_header:
+            print('found Auth header')
+            token = auth_header.split(" ")[1]
+
+        #if 'x-access-token' in request.headers:
+        #    print('found x-access-token')
+        #    token = request.headers['x-access-token']
         # return 401 if token is not passed
         if not token:
             return jsonify({'message' : 'Token is missing !!'}), 401
