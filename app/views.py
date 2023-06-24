@@ -359,7 +359,6 @@ def token_required(f):
 ## TODO Create admin_token_required wrapper
 
 @app.route("/setup_database")
-@token_required
 def setup_database():
     ## TODO check for admin superuser
     
