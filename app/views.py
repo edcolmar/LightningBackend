@@ -403,7 +403,7 @@ def userEmailValidationComplete(wallet, incoming_email = None, incoming_validati
         if user is None:
             print('user not found - creating')
             user = user_model.create({'emailaddress': incoming_email})
-            lightning_wallet_model.update(wallet['_id'], { 'userid': user['_id'], 'userconnected': True })
+            lightning_wallet_model.update(wallet['_id'], { 'userid': user, 'userconnected': True })
         else:
             print('found user with this email')
             lightning_wallet_model.update(wallet['_id'], { 'userid': user['_id'], 'userconnected': True })
