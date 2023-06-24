@@ -143,7 +143,8 @@ def signin():
     ## we don't have the public key yet, so use the k1
     print(k1)
     print(public_key.__str__())
-    pending_challenge = lightning_challneges_model.find_by_k1(ObjectId(k1))
+    pending_challenge = lightning_challneges_model.find_by_k1(k1)
+    print(pending_challenge)
 
     if pending_challenge is None:
         print('Challenge not found')
