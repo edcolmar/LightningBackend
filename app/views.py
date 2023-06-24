@@ -410,15 +410,25 @@ def setup_database():
 @app.route("/user/email/<incoming_email>/start")
 @token_required
 def userEmailValidationStart(wallet, incoming_email = None):
+    lightning_wallet_model = lightningwallets.LightningWallets()
+
     # start the email validation process.
-    logger.debug(incoming_email)
+    print(incoming_email)
 
     # get the wallet from the decorator
     print(wallet)
-    #wallet = f(wallet)
+
+    ## TODO make sure email is not already validated?
+    
+    #update the email address to the supplied
+    wallet['emailaddress'] = incoming_email
+
+    # TODO generate a verification code
+
+    lightning_wallet_model.update(wallet{'_id'}, wallet)
 
     # get the email from the request
-    # generate a verification code
+    
     # save the verification code in the wallet
     # send an email containing the verification code and link
     return jsonify({'success' : True})
