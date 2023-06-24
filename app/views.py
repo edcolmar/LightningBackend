@@ -339,16 +339,18 @@ def token_required(f):
         wallet = lightning_wallet_model.find_by_id(data['sub'])
         if wallet:
             logger.debug('found wallet')
-            current_user = user_model.find_by_id(wallet['userid'])
-            if current_user:
-                logger.debug('found current_user')
+
+            ## at this point, we might not have a user yet.
+            #current_user = user_model.find_by_id(wallet['userid'])
+            #if current_user:
+            #    logger.debug('found current_user')
 
         #except:
         #    return jsonify({
         #        'message' : 'Token is invalid !!'
         #    }), 401
         # returns the current logged in users context to the routes
-        return  f(current_user, *args, **kwargs)
+        return  f(wallet, *args, **kwargs)
   
     return decorated
 
@@ -410,6 +412,10 @@ def setup_database():
 def userEmailValidationStart(incoming_email = None):
     # start the email validation process.
     logger.debug(incoming_email)
+
+    # get the wallet from the decorator
+    print(f{wallet})
+    #wallet = f(wallet)
 
     # get the email from the request
     # generate a verification code
