@@ -268,7 +268,7 @@ def me():
 
         if this_wallet['userid'] == "0":
             print('user id set to zero')
-            auth_token = lightning_wallet_model.encode_auth_token(this_wallet['_id'])
+            auth_token = lightning_wallet_model.encode_auth_token(0)
             if auth_token:
                 responseObject = {
                     'userid': 0,
@@ -284,7 +284,7 @@ def me():
             user = user_model.find_by_id(ObjectId(this_wallet['userid']))
             if user == None:
                 print('user not found')
-                auth_token = lightning_wallet_model.encode_auth_token(this_wallet['_id'])
+                auth_token = lightning_wallet_model.encode_auth_token(0)
                 if auth_token:
                     responseObject = {
                         'userid': 0,
