@@ -139,6 +139,7 @@ def signin():
 
     ## look up the k1 from the db
     ## we don't have the public key yet, so use the k1
+    print(k1)
     print(public_key.__str__())
     pending_challenge = lightning_challneges_model.find_by_k1(k1)
 
