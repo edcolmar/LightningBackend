@@ -165,7 +165,7 @@ def signin():
         existing_wallet = lightning_wallet_model.find_by_k1(k1)
         print(existing_wallet)
 
-        if existing_wallet is None:
+        if existing_wallet == None:
             print('existing wallet not found - creating')
 
             new_wallet = lightning_wallet_model.create(
@@ -252,6 +252,7 @@ def me():
 
     ## for now, just using the intial bech_32_url aka challenge url
     bech_32_url = request.args.get("bech_32_url") # or ""
+    print(bech_32_url)
 
     user_model = users.Users()
     lightning_wallet_model = lightningwallets.LightningWallets()
@@ -260,10 +261,10 @@ def me():
     this_wallet = lightning_wallet_model.find_by_bech_32_url(bech_32_url)
 
     if this_wallet:
-        logger.debug('found wallet by bech_32_url')
+        print('found wallet by bech_32_url')
 
         try :
-            logger.debug('found userid in wallet')
+            print('found userid in wallet')
 
             user = user_model.find_by_id(this_wallet['userid'])
             if user:
