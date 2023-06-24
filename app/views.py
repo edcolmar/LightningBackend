@@ -165,7 +165,7 @@ def signin():
         existing_wallet = lightning_wallet_model.find_by_k1(k1)
         print(existing_wallet)
 
-        if existing_wallet == None:
+        if existing_wallet is None:
             print('existing wallet not found - creating')
 
             new_wallet = lightning_wallet_model.create(
