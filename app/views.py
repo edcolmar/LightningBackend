@@ -6,6 +6,8 @@ from flask import jsonify
 from flask_cors import CORS
 from datetime import datetime
 from base64 import encodebytes
+from bson.objectid import ObjectId
+
 from . import app
 from app.models import users
 from app.models import lightningwallets
@@ -141,7 +143,7 @@ def signin():
     ## we don't have the public key yet, so use the k1
     print(k1)
     print(public_key.__str__())
-    pending_challenge = lightning_challneges_model.find_by_k1(k1)
+    pending_challenge = lightning_challneges_model.find_by_k1(ObjectId(k1))
 
     if pending_challenge is None:
         print('Challenge not found')
@@ -159,7 +161,7 @@ def signin():
         ##     If not, prompt the user to connect to an email address, and begin email verification 
         ##   If no public key is found, create one, and begin email verification
 
-        existing_wallet = lightning_wallet_model.find_by_k1(k1)
+        existing_wallet = lightning_wallet_model.find_by_k1(ObjectId(k1))
         print(existing_wallet)
 
         if existing_wallet is None:
