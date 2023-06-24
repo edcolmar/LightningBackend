@@ -146,6 +146,7 @@ def signin():
         error["status"] = True
         error["message"] = "Invalid challenge"
     else:
+        print('found challenge')
         ## do we really want to delete it?
         ## Yes this is just a challenge. Delete it.  But do it in the return area after we are done.
         # We do want to keep track of the public key here.
@@ -157,10 +158,24 @@ def signin():
         ##   If no public key is found, create one, and begin email verification
 
         existing_wallet = lightning_wallet_model.find_by_publickey(public_key.__str__())
-        logger.debug(existing_wallet)
+        print(existing_wallet)
 
-        if existing_wallet:
-            print('found existing wallet - get user')
+        if existing_wallet == None:
+            print('existing wallet not found - creating')
+
+            new_wallet = lightning_wallet_model.create(
+                {
+                    "publickey": public_key.to_der(), 
+                    "userid": "0",
+                    "userconnected": False,
+                    "emailaddress": "",
+                    "emailvalidated": False,
+                    "bech_32_url": pending_challenge["bech_32_url"],
+
+                 }
+            )
+        else:
+            print('found existing wallet')
 
             ## TODO update with this challenge's bech_32_url
             existing_wallet['bech_32_url'] = pending_challenge['bech_32_url']
@@ -182,20 +197,8 @@ def signin():
 
             else:
                 print('user not connected')
-        else:
-            print('existing wallet not found - creating')
 
-            new_wallet = lightning_wallet_model.create(
-                {
-                    "publickey": public_key.to_der(), 
-                    "userid": "0",
-                    "userconnected": False,
-                    "emailaddress": "",
-                    "emailvalidated": False,
-                    "bech_32_url": pending_challenge["bech_32_url"],
-
-                 }
-            )
+            
 
     try:
         sig = decode_signature(der_sig)
