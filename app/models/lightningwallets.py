@@ -19,17 +19,18 @@ class LightningWallets(object):
             "emailaddress": "string",
             "emailvalidated": "bool", 
             "bech_32_url": "string",
+            "k1": "string",
             "created": "datetime",
             "updated": "datetime",
         }
 
-        self.create_required_fields = ["publickey"]
+        self.create_required_fields = ["k1"]
 
         # Fields optional for CREATE
         self.create_optional_fields = []
 
         # Fields required for UPDATE
-        self.update_required_fields = ["publickey"]
+        self.update_required_fields = ["k1"]
 
         # Fields optional for UPDATE
         self.update_optional_fields = []
@@ -45,6 +46,14 @@ class LightningWallets(object):
     
     def find_by_publickey(self, publickey):
         found = self.db.find_one({"publickey": publickey}, self.collection_name)
+        #if found is None:
+        #    return not found
+        #if "_id" in found:
+        #     found["_id"] = str(found["_id"])
+        return found
+    
+    def find_by_k1(self, k1):
+        found = self.db.find_one({"k1": k1}, self.collection_name)
         #if found is None:
         #    return not found
         #if "_id" in found:

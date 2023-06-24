@@ -159,10 +159,10 @@ def signin():
         ##     If not, prompt the user to connect to an email address, and begin email verification 
         ##   If no public key is found, create one, and begin email verification
 
-        existing_wallet = lightning_wallet_model.find_by_publickey(public_key.__str__())
+        existing_wallet = lightning_wallet_model.find_by_k1(k1)
         print(existing_wallet)
 
-        if existing_wallet == None:
+        if existing_wallet is None:
             print('existing wallet not found - creating')
 
             new_wallet = lightning_wallet_model.create(
@@ -172,6 +172,7 @@ def signin():
                     "userconnected": False,
                     "emailaddress": "",
                     "emailvalidated": False,
+                    "k1": k1,
                     "bech_32_url": pending_challenge["bech_32_url"],
 
                  }
