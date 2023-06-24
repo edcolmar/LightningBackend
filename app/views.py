@@ -32,6 +32,8 @@ from app.ecc import elliptic_curve
 from app.ecc import ecdsa
 from app.ecc import point,hex_to_int
 
+from settings import *
+
 logger = logging.getLogger('simple_example')
 logger.setLevel(logging.DEBUG)
 console = logging.StreamHandler(stdout)
@@ -330,7 +332,7 @@ def token_required(f):
   
         #try:
         # decoding the payload to fetch the stored details
-        data = jwt.decode(token, app.config['SECRET_KEY'], algorithms='HS256')
+        data = jwt.decode(token, JWT_SECRET_KEY, algorithms='HS256')
 
         print(data)
 
