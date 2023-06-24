@@ -260,7 +260,10 @@ def me():
 
     this_wallet = lightning_wallet_model.find_by_bech_32_url(bech_32_url)
 
-    if this_wallet:
+    if this_wallet == None:
+        print('did not find wallet by bech_32_url')
+
+    else:
         print('found wallet by bech_32_url')
 
         try :
