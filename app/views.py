@@ -230,7 +230,7 @@ def signin():
         )
     else:
         # delete the pending challenge 
-        lightning_challneges_model.delete(pending_challenge)
+        lightning_challneges_model.delete(pending_challenge["_id"])
         return jsonify(
             status = "OK",
             event = "LOGGEDIN"
