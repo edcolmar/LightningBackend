@@ -69,22 +69,6 @@ secp256k1 = elliptic_curve(
 def home():
     return render_template("home.html")
 
-@app.route("/about/")
-def about():
-    return render_template("about.html")
-
-@app.route("/contact/")
-def contact():
-    return render_template("contact.html")
-
-@app.route("/hello/")
-@app.route("/hello/<name>")
-def hello_there(name = None):
-    return render_template(
-        "hello_there.html",
-        name=name,
-        date=datetime.now()
-    )
 
 @app.route("/api/data")
 def get_data():
@@ -331,6 +315,7 @@ def token_required(f):
         token = None
         # jwt is passed in the request header
         if 'x-access-token' in request.headers:
+            print('found x-access-token')
             token = request.headers['x-access-token']
         # return 401 if token is not passed
         if not token:
