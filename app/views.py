@@ -267,7 +267,7 @@ def me():
         print('found wallet by bech_32_url')
 
 
-        user = user_model.find_by_id(this_wallet['userid'])
+        user = user_model.find_by_id(ObjectId(this_wallet['userid']))
         if user == None:
             print('user not found')
             auth_token = this_wallet.encode_auth_token(this_wallet['_id'])
