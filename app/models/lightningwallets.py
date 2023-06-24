@@ -30,10 +30,10 @@ class LightningWallets(object):
         self.create_optional_fields = []
 
         # Fields required for UPDATE
-        self.update_required_fields = ["k1"]
+        self.update_required_fields = []
 
         # Fields optional for UPDATE
-        self.update_optional_fields = []
+        self.update_optional_fields = ["userid", "userconnected", "emailaddress", "emailvalidated", "bech_32_url", "k1"]
 
     def create(self, lightningwallet):
         # Validator will throw error if invalid
