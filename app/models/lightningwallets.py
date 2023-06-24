@@ -30,7 +30,7 @@ class LightningWallets(object):
         self.create_optional_fields = []
 
         # Fields required for UPDATE
-        self.update_required_fields = []
+        self.update_required_fields = ["_id"]
 
         # Fields optional for UPDATE
         self.update_optional_fields = [ "publickey", "userid", "userconnected", "emailaddress", "emailvalidated", "bech_32_url", "k1", "created", "updated"]

@@ -356,6 +356,33 @@ def token_required(f):
 
 ## TODO Create admin_token_required wrapper
 
+@app.route("/user/email/<incoming_email>/start")
+@token_required
+def userEmailValidationStart(wallet, incoming_email = None):
+    lightning_wallet_model = lightningwallets.LightningWallets()
+
+    # start the email validation process.
+    print(incoming_email)
+
+    # get the wallet from the decorator
+    print(wallet)
+
+    ## TODO make sure email is not already validated?
+    
+    #update the email address to the supplied
+    wallet['emailaddress'] = incoming_email
+
+    # TODO generate a verification codde
+
+    lightning_wallet_model.update(wallet['_id'], wallet)
+
+    # get the email from the request
+    
+    # save the verification code in the wallet
+    # send an email containing the verification code and link
+    return jsonify({'success' : True})
+
+
 @app.route("/setup_database")
 def setup_database():
     ## TODO check for admin superuser
@@ -407,31 +434,6 @@ def setup_database():
 
     return jsonify({'success' : True})
 
-@app.route("/user/email/<incoming_email>/start")
-@token_required
-def userEmailValidationStart(wallet, incoming_email = None):
-    lightning_wallet_model = lightningwallets.LightningWallets()
-
-    # start the email validation process.
-    print(incoming_email)
-
-    # get the wallet from the decorator
-    print(wallet)
-
-    ## TODO make sure email is not already validated?
-    
-    #update the email address to the supplied
-    wallet['emailaddress'] = incoming_email
-
-    # TODO generate a verification code
-
-    lightning_wallet_model.update(wallet['_id'], wallet)
-
-    # get the email from the request
-    
-    # save the verification code in the wallet
-    # send an email containing the verification code and link
-    return jsonify({'success' : True})
 
 ## Views for data validation and testing
 ## Todo - after roles and permissions are in, these should be protected by them
