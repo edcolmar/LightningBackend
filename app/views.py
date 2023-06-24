@@ -330,7 +330,7 @@ def token_required(f):
   
         #try:
         # decoding the payload to fetch the stored details
-        data = jwt.decode(token, app.config['SECRET_KEY'], algorithm='HS256')
+        data = jwt.decode(token, app.config['SECRET_KEY'], algorithms='HS256')
 
         print(data)
 
