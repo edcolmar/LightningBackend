@@ -293,7 +293,7 @@ def me():
                 if auth_token:
                     responseObject = {
                         'userid': user['_id'],
-                        'name': user['name'],
+                        'name': 'anonymous user',
                         'status': 'success',
                         'message': 'Successfully logged in.',
                         'auth_token': auth_token,
@@ -432,6 +432,13 @@ def setup_database():
     for wallet in wallets:
         print('found wallet')
         lightning_wallet_model.delete(wallet['_id'])
+
+
+    user_model = users.Users()
+    users = user_model.find({})
+    for user in users:
+        print('found user')
+        user_model.delete(user['_id'])
 
     """
 
