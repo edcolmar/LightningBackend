@@ -99,7 +99,7 @@ def auth():
     #container = client.containers.get('fplb')
     #host_address = container.attrs['NetworkSettings']['IPAddress']
     url = "http://"+host_address+"/signin?tag=login&k1="+k1
-    logger.debug(url)
+    print(url)
 
     #add k1 to challenges
     # store in db instead
