@@ -32,7 +32,7 @@ from app.ecc import elliptic_curve
 from app.ecc import ecdsa
 from app.ecc import point,hex_to_int
 
-from settings import *
+from .settings import *
 
 logger = logging.getLogger('simple_example')
 logger.setLevel(logging.DEBUG)
