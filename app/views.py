@@ -7,6 +7,7 @@ from flask_cors import CORS
 from datetime import datetime
 from base64 import encodebytes
 from bson.objectid import ObjectId
+from bson import json_util
 
 from . import app
 from app.models import users
@@ -486,7 +487,7 @@ def challenge_list():
 def wallet_list():
     # setup model(s)
     lightning_wallet_model = lightningwallets.LightningWallets()
-    return jsonify(lightning_wallet_model.find({})), 200
+    return jsonify( json_util.dumps(lightning_wallet_model.find({}) )), 200
 
 @app.after_request
 def after_request(response):
