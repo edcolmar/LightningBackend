@@ -139,7 +139,7 @@ def signin():
 
     ## look up the k1 from the db
     
-    pending_challenge = lightning_challneges_model.find_by_publickey(public_key)
+    pending_challenge = lightning_challneges_model.find_by_publickey(public_key.to_der())
 
     if pending_challenge:
         error["status"] = True
@@ -155,7 +155,7 @@ def signin():
         ##     If not, prompt the user to connect to an email address, and begin email verification 
         ##   If no public key is found, create one, and begin email verification
 
-        existing_wallet = lightning_wallet_model.find_by_publickey(public_key)
+        existing_wallet = lightning_wallet_model.find_by_publickey(public_key.to_der())
         logger.debug(existing_wallet)
 
         if existing_wallet:
@@ -186,7 +186,7 @@ def signin():
 
             new_wallet = lightning_wallet_model.create(
                 {
-                    "publickey": public_key, 
+                    "publickey": public_key.to_der(), 
                     "userid": "0",
                     "userconnected": False,
                     "emailaddress": "",
