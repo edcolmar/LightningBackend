@@ -409,12 +409,12 @@ def setup_database():
 
 @app.route("/user/email/<incoming_email>/start")
 @token_required
-def userEmailValidationStart(incoming_email = None):
+def userEmailValidationStart(wallet, incoming_email = None):
     # start the email validation process.
     logger.debug(incoming_email)
 
     # get the wallet from the decorator
-    print(f{'wallet'})
+    print(wallet)
     #wallet = f(wallet)
 
     # get the email from the request
