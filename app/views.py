@@ -294,7 +294,7 @@ def me():
                 print(auth_token)
                 if auth_token:
                     responseObject = {
-                        'userid': user['_id'],
+                        'userid': str(user['_id']),
                         'name': 'anonymous user',
                         'status': 'success',
                         'message': 'Successfully logged in.',
