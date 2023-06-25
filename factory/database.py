@@ -40,7 +40,7 @@ class Database(object):
         return found
 
     def find_by_id(self, id, collection_name):
-        found = self.db[collection_name].find_one({"_id": ObjectId(id)})
+        found = self.db[collection_name].find_one({"_id": id})
         
         if found is None:
             return not found
