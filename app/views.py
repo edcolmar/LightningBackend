@@ -269,8 +269,9 @@ def me():
                 }
                 return make_response(jsonify(responseObject)), 200
         else:
+            objInstance = ObjectId(this_wallet['userid'])
 
-            user = user_model.find_by_id(this_wallet['userid'])
+            user = user_model.find_by_id(objInstance)
             if user == None:
                 print('user not found')
                 auth_token = lightning_wallet_model.encode_auth_token(str(this_wallet['_id']))
