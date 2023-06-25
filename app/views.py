@@ -435,10 +435,10 @@ def setup_database():
 
 
     user_model = users.Users()
-    users = user_model.find({})
-    for user in users:
+    site_users = user_model.find({})
+    for site_user in site_users:
         print('found user')
-        user_model.delete(user['_id'])
+        user_model.delete(site_user['_id'])
 
     """
 
