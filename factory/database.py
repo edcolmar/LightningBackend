@@ -42,11 +42,11 @@ class Database(object):
     def find_by_id(self, id, collection_name):
         found = self.db[collection_name].find_one({"_id": id})
         
-        if found is None:
-            return not found
+        #if found is None:
+        #    return not found
         
-        if "_id" in found:
-             found["_id"] = str(found["_id"])
+        #if "_id" in found:
+        #     found["_id"] = str(found["_id"])
 
         return found
     
