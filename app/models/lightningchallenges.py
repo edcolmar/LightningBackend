@@ -34,7 +34,7 @@ class LightningChallenges(object):
         # Validator will throw error if invalid
         self.validator.validate(lightningchallenge, self.fields, self.create_required_fields, self.create_optional_fields)
         res = self.db.insert(lightningchallenge, self.collection_name)
-        return "Inserted Id " + res
+        return res
 
     def find(self, lightningchallenge):  # find all
         return self.db.find(lightningchallenge, self.collection_name)

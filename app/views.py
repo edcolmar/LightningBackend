@@ -98,7 +98,7 @@ def auth():
     
     #bech32 encode string
     bech_32_url = encode_string(url)
-    lightning_challenge_model.insert({"k1": k1, "bech_32_url": bech_32_url})
+    lightning_challenge_model.create({"k1": k1, "bech_32_url": bech_32_url})
 
     #response = {'lnurl': bech_32_url}
     return jsonify({'lnurl' : bech_32_url})
@@ -156,7 +156,7 @@ def signin():
         if existing_wallet is None:
             print('existing wallet not found - creating')
 
-            new_wallet = lightning_wallet_model.insert(
+            new_wallet = lightning_wallet_model.create(
                 {
                     "publickey": public_key.__str__(), 
                     "userid": "0",
@@ -272,7 +272,7 @@ def me():
             ## does not work.  bson.errors.InvalidId: 'Inserted Id 6497c62cd0c61bafbd399a27' is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
             #objInstance = ObjectId(this_wallet['userid'])
 
-            user = user_model.find_by_id(this_wallet['userid'])  ## Does not actually find the user
+            user = user_model.find_by_id(this_wallet['userid'])  ## Does not actually find the
             if user == None:
                 print('user not found')
                 auth_token = lightning_wallet_model.encode_auth_token(str(this_wallet['_id']))
@@ -405,7 +405,7 @@ def userEmailValidationComplete(wallet, incoming_email = None, incoming_validati
         user = user_model.find_by_emailaddress(incoming_email)
         if user is None:
             print('user not found - creating')
-            user = user_model.insert({'emailaddress': incoming_email})
+            user = user_model.create({'emailaddress': incoming_email})
             lightning_wallet_model.update(wallet['_id'], { 'userid': user, 'userconnected': True })
         else:
             print('found user with this email')
