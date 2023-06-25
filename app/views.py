@@ -339,7 +339,7 @@ def token_required(f):
         print(data)
 
         wallet = lightning_wallet_model.find_by_id(data['sub'])
-        if wallet:
+        if wallet != None:
             logger.debug('found wallet')
 
             ## at this point, we might not have a user yet.
