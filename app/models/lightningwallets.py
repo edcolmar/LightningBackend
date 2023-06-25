@@ -40,7 +40,7 @@ class LightningWallets(object):
         # Validator will throw error if invalid
         self.validator.validate(lightningwallet, self.fields, self.create_required_fields, self.create_optional_fields)
         res = self.db.insert(lightningwallet, self.collection_name)
-        return "Inserted Id " + res
+        return res
 
     def find(self, lightningwallet):  # find all
         return self.db.find(lightningwallet, self.collection_name)

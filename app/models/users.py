@@ -35,7 +35,7 @@ class Users(object):
         # Validator will throw error if invalid
         self.validator.validate(user, self.fields, self.create_required_fields, self.create_optional_fields)
         res = self.db.insert(user, self.collection_name)
-        return "Inserted Id " + res
+        return res
 
     def find(self, user):  # find all
         return self.db.find(user, self.collection_name)
