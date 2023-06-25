@@ -272,7 +272,7 @@ def me():
             ## does not work.  bson.errors.InvalidId: 'Inserted Id 6497c62cd0c61bafbd399a27' is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
             #objInstance = ObjectId(this_wallet['userid'])
 
-            user = user_model.find_by_id(this_wallet['userid'])  ## Does not actually find the
+            user = user_model.find_by_id(ObjectId(this_wallet['userid']))  
             if user == None:
                 print('user not found')
                 auth_token = lightning_wallet_model.encode_auth_token(str(this_wallet['_id']))
